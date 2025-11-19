@@ -10,6 +10,12 @@
 
   --success-green: #2B7A0B;      /* Optional (correct answer) */
   --error-red: #C3423F;          /* Optional (incorrect answer) */
+
+  /* aliases */
+  --primary: var(--primary-navy);
+  --white: var(--panel-white);
+  --text: var(--text-dark);
+  --secondary: var(--secondary-blue);
 }
 
 /* ----------------------------------------
@@ -194,6 +200,7 @@ p {
   background: var(--secondary-blue);
 }
 
+/* Override inconsistent .answer-btn rules so they use the defined palette consistently */
 .answer-btn {
   display: block;
   width: 100%;
@@ -233,4 +240,82 @@ p {
 
 #results-screen button:hover {
   background: var(--secondary-blue);
+}
+
+/* ----------------------------------------
+   RESPONSIVE ADJUSTMENTS
+-----------------------------------------*/
+/* Small devices (phones) */
+@media (max-width: 480px) {
+  body {
+    padding: 12px;
+    height: auto;
+    align-items: flex-start; /* allow natural flow */
+  }
+
+  .screen {
+    position: static;        /* remove absolute centering to avoid overflow */
+    transform: none;
+    top: auto;
+    left: auto;
+    margin: 2rem auto;
+    width: 100%;
+    max-width: 420px;
+    padding: 1rem 1rem;
+    max-height: 96vh;
+    overflow-y: auto;
+    box-sizing: border-box;
+  }
+
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.1rem; margin-top: 1rem; }
+
+  #username-input { width: 100%; }
+
+  #start-btn,
+  #next-btn,
+  #results-screen button {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+  }
+
+  #answer-buttons {
+    gap: 10px;
+  }
+
+  #answer-buttons button,
+  .answer-btn {
+    padding: 10px;
+    font-size: 0.95rem;
+  }
+
+  /* ensure images scale properly on small screens */
+  #question-image {
+    display: block;
+    max-height: 38vh;
+    object-fit: cover;
+  }
+}
+
+/* Very small devices (extra small phones) */
+@media (max-width: 360px) {
+  .screen {
+    padding: 0.75rem;
+    border-radius: 12px;
+  }
+
+  h1 { font-size: 1.4rem; }
+  h2 { font-size: 1rem; }
+
+  #username-input { padding: 10px; }
+  #start-btn, #next-btn, #results-screen button { padding: 9px; font-size: 0.95rem; }
+  #answer-buttons button, .answer-btn { font-size: 0.9rem; padding: 8px; }
+}
+
+/* Optional: improve large-screen layout so the card doesn't get too wide */
+@media (min-width: 1200px) {
+  .screen {
+    max-width: 520px;
+  }
 }
