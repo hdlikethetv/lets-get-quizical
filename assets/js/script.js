@@ -13,6 +13,16 @@ const usernameDisplay = document.getElementById('display-username');
 const questionContainer = document.getElementById('question-text');
 const answersContainer = document.getElementById('answer-buttons');
 const nextQuestionBtn = document.getElementById('next-btn');
+const quizScore = document.getElementById('score');
+const questionNumber = document.getElementById('question-number');
+
+
+// Get result page element references
+const resultUsername = document.getElementById('result-username');
+const resultScore = document.getElementById('result-score');
+const resultPercent = document.getElementById('result-percent');
+
+
 
 
 //Global Variables
@@ -20,6 +30,8 @@ let currentQuestion = [];
 let currentQuestionIndex;
 let currentAnswers;
 let currentCorrectAnswer;
+let setName;
+let score = 0;
 
 // testing questions
 const questions = [
@@ -51,6 +63,7 @@ nextQuestionBtn.addEventListener('click', () => {
 
     // Check if on last question
     if (nextIndex >= questions.length) {
+        setResults();
         showScreen('results');
     } else {
         loadQuestion(nextIndex);
@@ -88,6 +101,7 @@ function startQuiz() {
 
     
     usernameDisplay.textContent = enteredName;
+    setName = enteredName;
     showScreen('quiz');
     loadQuestion(0); // Load the first question
 }
@@ -102,6 +116,7 @@ function loadQuestion(index) {
     console.log(currentAnswers);
     console.log(currentCorrectAnswer);  
 
+    questionNumber.textContent = `${currentQuestionIndex + 1} / ${questions.length}`;
     questionContainer.textContent = currentQuestion.question;
     answersContainer.innerHTML = ''; // Clear previous answers if any
     currentCorrectAnswer = currentQuestion.correctAnswer;
@@ -111,6 +126,7 @@ function loadQuestion(index) {
         const button = document.createElement('button');
         button.textContent = answer;
         button.classList.add('answer-btn');
+        button.classList.add('a-btn')
         answersContainer.appendChild(button);
 
         button.addEventListener('click', checkAnswer);
@@ -120,16 +136,26 @@ function loadQuestion(index) {
 function checkAnswer(e) {
     const submittedAnswer = e.target.textContent;
     let selectedButton = e.target;
+    let currentAnswerButtons = document.querySelectorAll('.answer-btn');
     console.log(e.target.textContent);
+
+    if (!selectedButton.classList.contains('a-btn')) {
+        return;
+    }
+
+    console.log("Button code ran");
 
     if (submittedAnswer === currentCorrectAnswer) {
         console.log("Correct");
         selectedButton.classList.add('correct');
+        score = score + 1
+        quizScore.textContent = score
+
     } else {
         console.log("Incorrect");
         selectedButton.classList.add('incorrect');
 
-        let currentAnswerButtons = document.querySelectorAll('.answer-btn');
+        
         console.log(currentAnswerButtons);
 
         currentAnswerButtons.forEach(button => {
@@ -140,12 +166,18 @@ function checkAnswer(e) {
         }
     });
     }
-
+    currentAnswerButtons.forEach(button => {
+        button.classList.remove("a-btn");
+    });
     // Show next question button
-
     nextQuestionBtn.classList.remove('hidden');
+}
 
+function setResults() {
 
+    resultUsername.textContent = setName;
+    resultScore.textContent = score;
+    resultPercent.textContent = Math.round(score / questions.length * 100) + '%'
 
 }
 
