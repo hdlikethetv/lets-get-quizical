@@ -23,6 +23,8 @@
 -----------------------------------------*/
 body {
   font-family: "Inter", Arial, sans-serif;
+  /* fallback solid color + requested gradient */
+  background: var(--background-light);
   background: linear-gradient(to bottom, #F7F9FA 0%, #E6EEF3 40%, #D2E4EE 100%);
   margin: 0;
   padding: 0;
@@ -135,6 +137,7 @@ p {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  margin-top: 1.5rem; /* increased space between question text and answers */
 }
 
 #answer-buttons button {
@@ -176,8 +179,6 @@ p {
   transform: scale(1.02);
 }
 
-
-
 /* ----------------------------------------
    NEXT QUESTION BUTTON
 -----------------------------------------*/
@@ -199,22 +200,6 @@ p {
 #next-btn:hover {
   background: var(--secondary-blue);
 }
-
-/* Override inconsistent .answer-btn rules so they use the defined palette consistently */
-.answer-btn {
-  display: block;
-  width: 100%;
-  padding: 12px 16px;
-  margin: 8px 0;
-  border: 2px solid var(--primary);
-  background: var(--white);
-  color: var(--text);
-  border-radius: 12px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: 0.25s ease;
-}
-
 .answer-btn:hover {
   background: var(--secondary);
   color: white;
@@ -250,19 +235,24 @@ p {
   body {
     padding: 12px;
     height: auto;
-    align-items: flex-start; /* allow natural flow */
+    /* center the card vertically and horizontally */
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    overflow-y: auto; /* allow scrolling if content exceeds viewport */
   }
 
   .screen {
-    position: static;        /* remove absolute centering to avoid overflow */
+    position: static;        /* keep non-absolute layout to avoid clipping */
     transform: none;
     top: auto;
     left: auto;
-    margin: 2rem auto;
+    /* rely on flex centering, remove top margin */
+    margin: auto;
     width: 100%;
     max-width: 420px;
-    padding: 1rem 1rem;
-    max-height: 96vh;
+    padding: 1rem;
+    max-height: 92vh;        /* ensure the card fits and allows scroll inside the page */
     overflow-y: auto;
     box-sizing: border-box;
   }
@@ -282,6 +272,7 @@ p {
 
   #answer-buttons {
     gap: 10px;
+    margin-top: 1.25rem; /* slightly smaller on narrow screens */
   }
 
   #answer-buttons button,
@@ -311,6 +302,11 @@ p {
   #username-input { padding: 10px; }
   #start-btn, #next-btn, #results-screen button { padding: 9px; font-size: 0.95rem; }
   #answer-buttons button, .answer-btn { font-size: 0.9rem; padding: 8px; }
+
+  #answer-buttons {
+    gap: 10px;
+    margin-top: 1rem; /* compact spacing for extra-small devices */
+  }
 }
 
 /* Optional: improve large-screen layout so the card doesn't get too wide */
@@ -319,5 +315,3 @@ p {
     max-width: 520px;
   }
 }
-
-
