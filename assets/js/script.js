@@ -13,6 +13,15 @@ const usernameDisplay = document.getElementById('display-username');
 const questionContainer = document.getElementById('question-text');
 const answersContainer = document.getElementById('answer-buttons');
 const nextQuestionBtn = document.getElementById('next-btn');
+const quizScore = document.getElementById('score');
+
+
+// Get result page element references
+const resultUsername = document.getElementById('result-username');
+const resultScore = document.getElementById('result-score');
+const resultPercent = document.getElementById('result-percent');
+
+
 
 
 //Global Variables
@@ -20,6 +29,8 @@ let currentQuestion = [];
 let currentQuestionIndex;
 let currentAnswers;
 let currentCorrectAnswer;
+let setName;
+let score = 0;
 
 // testing questions
 const questions = [
@@ -89,6 +100,7 @@ function startQuiz() {
 
     
     usernameDisplay.textContent = enteredName;
+    setName = enteredName;
     showScreen('quiz');
     loadQuestion(0); // Load the first question
 }
@@ -134,6 +146,9 @@ function checkAnswer(e) {
     if (submittedAnswer === currentCorrectAnswer) {
         console.log("Correct");
         selectedButton.classList.add('correct');
+        score = score + 1
+        quizScore.textContent = score
+
     } else {
         console.log("Incorrect");
         selectedButton.classList.add('incorrect');
@@ -157,7 +172,11 @@ function checkAnswer(e) {
 }
 
 function setResults() {
-    
+
+    resultUsername.textContent = setName;
+    resultScore.textContent = score;
+    resultPercent.textContent = Math.round(score / questions.length * 100) + '%'
+
 }
 
 showScreen('start'); // Show the start screen by default
