@@ -124,10 +124,10 @@ function checkAnswer(e) {
 
     if (submittedAnswer === currentCorrectAnswer) {
         console.log("Correct");
-        selectedButton.classList.add('green');
+        selectedButton.classList.add('correct');
     } else {
         console.log("Incorrect");
-        selectedButton.classList.add('red');
+        selectedButton.classList.add('incorrect');
 
         let currentAnswerButtons = document.querySelectorAll('.answer-btn');
         console.log(currentAnswerButtons);
@@ -136,7 +136,7 @@ function checkAnswer(e) {
         console.log(button);
         console.log(button.textContent);
         if (button.textContent.trim() === currentCorrectAnswer) {
-        button.classList.add('green');
+        button.classList.add('correct');
         }
     });
     }
