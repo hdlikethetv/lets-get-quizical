@@ -14,6 +14,7 @@ const questionContainer = document.getElementById('question-text');
 const answersContainer = document.getElementById('answer-buttons');
 const nextQuestionBtn = document.getElementById('next-btn');
 const quizScore = document.getElementById('score');
+const questionNumber = document.getElementById('question-number');
 
 
 // Get result page element references
@@ -115,6 +116,7 @@ function loadQuestion(index) {
     console.log(currentAnswers);
     console.log(currentCorrectAnswer);  
 
+    questionNumber.textContent = `${currentQuestionIndex + 1} / ${questions.length}`;
     questionContainer.textContent = currentQuestion.question;
     answersContainer.innerHTML = ''; // Clear previous answers if any
     currentCorrectAnswer = currentQuestion.correctAnswer;
