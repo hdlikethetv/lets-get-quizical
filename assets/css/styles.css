@@ -10,6 +10,12 @@
 
   --success-green: #2B7A0B;      /* Optional (correct answer) */
   --error-red: #C3423F;          /* Optional (incorrect answer) */
+
+  /* aliases */
+  --primary: var(--primary-navy);
+  --white: var(--panel-white);
+  --text: var(--text-dark);
+  --secondary: var(--secondary-blue);
 }
 
 /* ----------------------------------------
@@ -17,7 +23,9 @@
 -----------------------------------------*/
 body {
   font-family: "Inter", Arial, sans-serif;
+  /* fallback solid color + requested gradient */
   background: var(--background-light);
+  background: linear-gradient(to bottom, #F7F9FA 0%, #E6EEF3 40%, #D2E4EE 100%);
   margin: 0;
   padding: 0;
 
@@ -129,6 +137,7 @@ p {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  margin-top: 1.5rem; /* increased space between question text and answers */
 }
 
 #answer-buttons button {
@@ -146,6 +155,28 @@ p {
 #answer-buttons button:hover {
   background: var(--secondary-blue);
   color: white;
+}
+
+.answer-btn.correct {
+  background-color: #2B7A0B;   /* Accessible green */
+  color: #ffffff;
+  border-color: #2B7A0B;
+}
+
+.answer-btn.incorrect {
+  background-color: #C3423F;   /* Accessible red */
+  color: #ffffff;
+  border-color: #C3423F;
+}
+
+.answer-btn.correct,
+.answer-btn.incorrect {
+  transition: background-color 0.25s ease, transform 0.2s ease;
+}
+
+.answer-btn.correct:hover,
+.answer-btn.incorrect:hover {
+  transform: scale(1.02);
 }
 
 /* ----------------------------------------
@@ -169,6 +200,10 @@ p {
 #next-btn:hover {
   background: var(--secondary-blue);
 }
+.answer-btn:hover {
+  background: var(--secondary);
+  color: white;
+}
 
 /* ----------------------------------------
    RESULTS SCREEN BUTTONS
@@ -190,4 +225,93 @@ p {
 
 #results-screen button:hover {
   background: var(--secondary-blue);
+}
+
+/* ----------------------------------------
+   RESPONSIVE ADJUSTMENTS
+-----------------------------------------*/
+/* Small devices (phones) */
+@media (max-width: 480px) {
+  body {
+    padding: 12px;
+    height: auto;
+    /* center the card vertically and horizontally */
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    overflow-y: auto; /* allow scrolling if content exceeds viewport */
+  }
+
+  .screen {
+    position: static;        /* keep non-absolute layout to avoid clipping */
+    transform: none;
+    top: auto;
+    left: auto;
+    /* rely on flex centering, remove top margin */
+    margin: auto;
+    width: 100%;
+    max-width: 420px;
+    padding: 1rem;
+    max-height: 92vh;        /* ensure the card fits and allows scroll inside the page */
+    overflow-y: auto;
+    box-sizing: border-box;
+  }
+
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.1rem; margin-top: 1rem; }
+
+  #username-input { width: 100%; }
+
+  #start-btn,
+  #next-btn,
+  #results-screen button {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+  }
+
+  #answer-buttons {
+    gap: 10px;
+    margin-top: 1.25rem; /* slightly smaller on narrow screens */
+  }
+
+  #answer-buttons button,
+  .answer-btn {
+    padding: 10px;
+    font-size: 0.95rem;
+  }
+
+  /* ensure images scale properly on small screens */
+  #question-image {
+    display: block;
+    max-height: 38vh;
+    object-fit: cover;
+  }
+}
+
+/* Very small devices (extra small phones) */
+@media (max-width: 360px) {
+  .screen {
+    padding: 0.75rem;
+    border-radius: 12px;
+  }
+
+  h1 { font-size: 1.4rem; }
+  h2 { font-size: 1rem; }
+
+  #username-input { padding: 10px; }
+  #start-btn, #next-btn, #results-screen button { padding: 9px; font-size: 0.95rem; }
+  #answer-buttons button, .answer-btn { font-size: 0.9rem; padding: 8px; }
+
+  #answer-buttons {
+    gap: 10px;
+    margin-top: 1rem; /* compact spacing for extra-small devices */
+  }
+}
+
+/* Optional: improve large-screen layout so the card doesn't get too wide */
+@media (min-width: 1200px) {
+  .screen {
+    max-width: 520px;
+  }
 }
