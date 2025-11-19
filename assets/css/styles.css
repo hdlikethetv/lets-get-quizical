@@ -157,25 +157,31 @@ p {
   color: white;
 }
 
-.answer-btn.correct {
+#answer-buttons .answer-btn.correct {
   background-color: #2B7A0B;   /* Accessible green */
   color: #ffffff;
   border-color: #2B7A0B;
 }
 
-.answer-btn.incorrect {
+#answer-buttons .answer-btn.incorrect {
   background-color: #C3423F;   /* Accessible red */
   color: #ffffff;
   border-color: #C3423F;
 }
 
-.answer-btn.correct,
-.answer-btn.incorrect {
+/* keep transitions */
+#answer-buttons .answer-btn.correct,
+#answer-buttons .answer-btn.incorrect {
   transition: background-color 0.25s ease, transform 0.2s ease;
 }
 
-.answer-btn.correct:hover,
-.answer-btn.incorrect:hover {
+/* ensure hover keeps the correct/incorrect background (overrides .answer-btn:hover) */
+#answer-buttons .answer-btn.correct:hover {
+  background-color: #2B7A0B;
+  transform: scale(1.02);
+}
+#answer-buttons .answer-btn.incorrect:hover {
+  background-color: #C3423F;
   transform: scale(1.02);
 }
 
