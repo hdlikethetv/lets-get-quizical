@@ -51,6 +51,7 @@ nextQuestionBtn.addEventListener('click', () => {
 
     // Check if on last question
     if (nextIndex >= questions.length) {
+        setResults();
         showScreen('results');
     } else {
         loadQuestion(nextIndex);
@@ -111,6 +112,7 @@ function loadQuestion(index) {
         const button = document.createElement('button');
         button.textContent = answer;
         button.classList.add('answer-btn');
+        button.classList.add('a-btn')
         answersContainer.appendChild(button);
 
         button.addEventListener('click', checkAnswer);
@@ -120,7 +122,14 @@ function loadQuestion(index) {
 function checkAnswer(e) {
     const submittedAnswer = e.target.textContent;
     let selectedButton = e.target;
+    let currentAnswerButtons = document.querySelectorAll('.answer-btn');
     console.log(e.target.textContent);
+
+    if (!selectedButton.classList.contains('a-btn')) {
+        return;
+    }
+
+    console.log("Button code ran");
 
     if (submittedAnswer === currentCorrectAnswer) {
         console.log("Correct");
@@ -129,7 +138,7 @@ function checkAnswer(e) {
         console.log("Incorrect");
         selectedButton.classList.add('incorrect');
 
-        let currentAnswerButtons = document.querySelectorAll('.answer-btn');
+        
         console.log(currentAnswerButtons);
 
         currentAnswerButtons.forEach(button => {
@@ -140,13 +149,15 @@ function checkAnswer(e) {
         }
     });
     }
-
+    currentAnswerButtons.forEach(button => {
+        button.classList.remove("a-btn");
+    });
     // Show next question button
-
     nextQuestionBtn.classList.remove('hidden');
+}
 
-
-
+function setResults() {
+    
 }
 
 showScreen('start'); // Show the start screen by default
