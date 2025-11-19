@@ -46,6 +46,16 @@ const questions = [
 
 // Event Listeners
 startButton.addEventListener('click', startQuiz);
+nextQuestionBtn.addEventListener('click', () => {
+    const nextIndex = currentQuestionIndex + 1;
+
+    // Check if on last question
+    if (nextIndex >= questions.length) {
+        showScreen('results');
+    } else {
+        loadQuestion(nextIndex);
+    }
+});
 
 // Function to show a specific screen and hide the others
 function showScreen(screen) {
