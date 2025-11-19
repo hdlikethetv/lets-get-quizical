@@ -357,6 +357,31 @@ select option {
 
 /* Responsive tweaks */
 @media (max-width: 480px) {
+    .select-wrapper {
+        width: 100%;
+        margin: 0.5rem 0;
+        max-width: none;
+    }
+
+    .select-wrapper select {
+        padding: 12px 40px 12px 10px;
+        font-size: 0.95rem;
+        border-radius: 10px;
+    }
+
+    .select-wrapper::after {
+        right: 10px;
+        width: 10px;
+        height: 10px;
+        background-size: 10px 10px;
+    }
+}
+
+/* ----------------------------------------
+   RESPONSIVE ADJUSTMENTS
+-----------------------------------------*/
+/* Small devices (phones) */
+@media (max-width: 480px) {
     body {
         /* keep centered vertically and horizontally */
         padding: 12px;
@@ -385,10 +410,18 @@ select option {
         box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     }
 
-    h1 { font-size: 1.6rem; }
-    h2 { font-size: 1.1rem; margin-top: 1rem; }
+    h1 {
+        font-size: 1.6rem;
+    }
 
-    #username-input { width: 100%; }
+    h2 {
+        font-size: 1.1rem;
+        margin-top: 1rem;
+    }
+
+    #username-input {
+        width: 100%;
+    }
 
     #start-btn,
     #next-btn,
@@ -450,12 +483,30 @@ select option {
         box-shadow: 0 3px 8px rgba(0,0,0,0.06);
     }
 
-    h1 { font-size: 1.4rem; }
-    h2 { font-size: 1rem; }
+    h1 {
+        font-size: 1.4rem;
+    }
 
-    #username-input { padding: 10px; }
-    #start-btn, #next-btn, #results-screen button { padding: 9px; font-size: 0.95rem; }
-    #answer-buttons button, .answer-btn { font-size: 0.9rem; padding: 8px; }
+    h2 {
+        font-size: 1rem;
+    }
+
+    #username-input {
+        padding: 10px;
+    }
+
+    #start-btn,
+    #next-btn,
+    #results-screen button {
+        padding: 9px;
+        font-size: 0.95rem;
+    }
+
+    #answer-buttons button,
+    .answer-btn {
+        font-size: 0.9rem;
+        padding: 8px;
+    }
 
     #answer-buttons {
         gap: 10px;
