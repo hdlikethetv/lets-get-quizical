@@ -12,6 +12,14 @@ const usernameInput = document.getElementById('username-input');
 const usernameDisplay = document.getElementById('display-username');
 const questionContainer = document.getElementById('question-text');
 const answersContainer = document.getElementById('answer-buttons');
+const nextQuestionBtn = document.getElementById('next-btn');
+
+
+//Global Variables
+let currentQuestion = [];
+let currentQuestionIndex;
+let currentAnswers;
+let currentCorrectAnswer;
 
 // testing questions
 const questions = [
@@ -38,6 +46,16 @@ const questions = [
 
 // Event Listeners
 startButton.addEventListener('click', startQuiz);
+nextQuestionBtn.addEventListener('click', () => {
+    const nextIndex = currentQuestionIndex + 1;
+
+    // Check if on last question
+    if (nextIndex >= questions.length) {
+        showScreen('results');
+    } else {
+        loadQuestion(nextIndex);
+    }
+});
 
 // Function to show a specific screen and hide the others
 function showScreen(screen) {
@@ -75,18 +93,61 @@ function startQuiz() {
 }
 
 function loadQuestion(index) {
-    const currentQuestion = questions[index];
+    currentQuestion = questions[index];
+    currentQuestionIndex = index;
+    currentAnswers = currentQuestion.answers;
+    currentCorrectAnswer = currentQuestion.correctAnswer;
+
+    console.log(currentQuestion);
+    console.log(currentAnswers);
+    console.log(currentCorrectAnswer);  
+
     questionContainer.textContent = currentQuestion.question;
-    answersContainer.innerHTML = ''; // Clear previous answers if any 
+    answersContainer.innerHTML = ''; // Clear previous answers if any
+    currentCorrectAnswer = currentQuestion.correctAnswer;
 
     // loop through current question answers and create buttons
     currentQuestion.answers.forEach(answer => {
         const button = document.createElement('button');
         button.textContent = answer;
+        button.classList.add('answer-btn');
         answersContainer.appendChild(button);
+
+        button.addEventListener('click', checkAnswer);
     });
 }    
 
+function checkAnswer(e) {
+    const submittedAnswer = e.target.textContent;
+    let selectedButton = e.target;
+    console.log(e.target.textContent);
 
+    if (submittedAnswer === currentCorrectAnswer) {
+        console.log("Correct");
+        selectedButton.classList.add('correct');
+    } else {
+        console.log("Incorrect");
+        selectedButton.classList.add('incorrect');
+
+        let currentAnswerButtons = document.querySelectorAll('.answer-btn');
+        console.log(currentAnswerButtons);
+
+        currentAnswerButtons.forEach(button => {
+        console.log(button);
+        console.log(button.textContent);
+        if (button.textContent.trim() === currentCorrectAnswer) {
+        button.classList.add('correct');
+        }
+    });
+    }
+
+    // Show next question button
+
+    nextQuestionBtn.classList.remove('hidden');
+
+
+
+}
 
 showScreen('start'); // Show the start screen by default
+
