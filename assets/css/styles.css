@@ -23,7 +23,7 @@
 -----------------------------------------*/
 body {
   font-family: "Inter", Arial, sans-serif;
-  background: var(--background-light);
+  background: linear-gradient(to bottom, #F7F9FA 0%, #E6EEF3 40%, #D2E4EE 100%);
   margin: 0;
   padding: 0;
 
@@ -319,3 +319,5 @@ p {
     max-width: 520px;
   }
 }
+
+
