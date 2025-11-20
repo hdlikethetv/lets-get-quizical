@@ -1,11 +1,13 @@
 // Get references to the different screens
 const startScreen = document.getElementById('start-screen');
+const selectionScreen = document.getElementById('selection-screen');
 const quizScreen = document.getElementById('quiz-screen');
 const resultScreen = document.getElementById('results-screen');
 
 // Get start page element references
 const startButton = document.getElementById('start-btn');
 const usernameInput = document.getElementById('username-input');
+const userNameBtn = document.getElementById('username-btn');
 
 
 // Get quiz page element references
@@ -34,7 +36,7 @@ let setName;
 let score = 0;
 
 // testing questions
-const questions = [
+let questions = [
   {
     type: 'text',
     question: 'What is the capital of Japan?',
@@ -58,6 +60,7 @@ const questions = [
 
 // Event Listeners
 startButton.addEventListener('click', startQuiz);
+userNameBtn.addEventListener('click', showSelection);
 nextQuestionBtn.addEventListener('click', () => {
     const nextIndex = currentQuestionIndex + 1;
 
@@ -75,6 +78,7 @@ function showScreen(screen) {
     startScreen.classList.add('hidden');
     quizScreen.classList.add('hidden');     // Hide alll
     resultScreen.classList.add('hidden');
+    selectionScreen.classList.add('hidden');
 
     // Show the selected screen
     if (screen === 'start') {
@@ -83,11 +87,19 @@ function showScreen(screen) {
         quizScreen.classList.remove('hidden');
     } else if (screen === 'results') {
         resultScreen.classList.remove('hidden');
+    } else if (screen === 'selection') {
+         selectionScreen.classList.remove('hidden');
     }
 }
 
 // Function to start the quiz
 function startQuiz() {
+    
+    showScreen('quiz');
+    loadQuestion(0); // Load the first question
+}
+
+function showSelection() {
     const enteredName = usernameInput.value.trim(); // Remove whitespace and set name
     if (!enteredName) {
         alert('Please enter your name to start the quiz.');
@@ -98,12 +110,11 @@ function startQuiz() {
         alert('Name must be at least 3 characters long.');
         return;
     }
-
+    showScreen('selection');
     
     usernameDisplay.textContent = enteredName;
     setName = enteredName;
-    showScreen('quiz');
-    loadQuestion(0); // Load the first question
+
 }
 
 function loadQuestion(index) {
@@ -116,6 +127,7 @@ function loadQuestion(index) {
     console.log(currentAnswers);
     console.log(currentCorrectAnswer);  
 
+    nextQuestionBtn.classList.add('hidden'); // Hide the next question button if its visible
     questionNumber.textContent = `${currentQuestionIndex + 1} / ${questions.length}`;
     questionContainer.textContent = currentQuestion.question;
     answersContainer.innerHTML = ''; // Clear previous answers if any
@@ -181,5 +193,26 @@ function setResults() {
 
 }
 
-showScreen('start'); // Show the start screen by default
+async function getApiQuestions(amount = 30, difficulty = "easy") {
+    const url = `https://opentdb.com/api.php?encode=url3986&amount=${amount}&difficulty=${difficulty}&category=9`;
+    const res = await fetch(url);
+    const data = await res.json();
+    if (!data || data.response_code !== 0) return; // return if api call failed.
+    
+    console.log(data.results);
+    //Loops through the results array and returns a new sorted array of question objects
+    const sortedQuestions = data.results.map(q => {
+            const question = decodeURIComponent(q.question);
+            const correct = decodeURIComponent(q.correct_answer);
+            const incorrect = q.incorrect_answers.map(a => decodeURIComponent(a));
+            let answers = decodeURIComponent(q.type) === 'boolean' ? ['True', 'False'] : [...incorrect, correct]; //  if the question is true or false set answers if not make a array from contents of incorrect array + correct answer
+            return { type: 'text', question, answers, correctAnswer: correct };
+    });
 
+    console.log(sortedQuestions);
+    questions = sortedQuestions;
+
+}
+
+showScreen('start'); // Show the start screen by default
+getApiQuestions();
