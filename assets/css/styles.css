@@ -96,7 +96,7 @@ p {
     background: linear-gradient(180deg, rgba(250,250,250,0.9), var(--white));
 }
 
-#start-btn {
+#start-btn, #username-btn {
     width: 60%;
     padding: 12px;
     background: var(--primary-navy);
@@ -152,7 +152,7 @@ p {
     cursor: pointer;
 }
 
-#answer-buttons button:hover {
+#answer-buttons .a-btn:hover {
     background: var(--secondary-blue);
     color: white;
 }
@@ -170,11 +170,11 @@ p {
 }
 
 /* ensure hover keeps the correct/incorrect background (overrides .answer-btn:hover) */
-#answer-buttons .answer-btn.correct:hover {
+#answer-buttons .a-btn.correct:hover {
     background-color: #2B7A0B;
     transform: scale(1.02);
 }
-#answer-buttons .answer-btn.incorrect:hover {
+#answer-buttons .a-btn.incorrect:hover {
     background-color: #C3423F;
     transform: scale(1.02);
 }
