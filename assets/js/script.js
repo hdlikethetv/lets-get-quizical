@@ -7,6 +7,7 @@ const resultScreen = document.getElementById('results-screen');
 // Get start page element references
 const startButton = document.getElementById('start-btn');
 const usernameInput = document.getElementById('username-input');
+const userNameBtn = document.getElementById('username-btn');
 
 
 // Get quiz page element references
@@ -59,6 +60,7 @@ let questions = [
 
 // Event Listeners
 startButton.addEventListener('click', startQuiz);
+userNameBtn.addEventListener('click', showSelection);
 nextQuestionBtn.addEventListener('click', () => {
     const nextIndex = currentQuestionIndex + 1;
 
@@ -92,6 +94,12 @@ function showScreen(screen) {
 
 // Function to start the quiz
 function startQuiz() {
+    
+    showScreen('quiz');
+    loadQuestion(0); // Load the first question
+}
+
+function showSelection() {
     const enteredName = usernameInput.value.trim(); // Remove whitespace and set name
     if (!enteredName) {
         alert('Please enter your name to start the quiz.');
@@ -102,12 +110,11 @@ function startQuiz() {
         alert('Name must be at least 3 characters long.');
         return;
     }
-
+    showScreen('selection');
     
     usernameDisplay.textContent = enteredName;
     setName = enteredName;
-    showScreen('quiz');
-    loadQuestion(0); // Load the first question
+
 }
 
 function loadQuestion(index) {
