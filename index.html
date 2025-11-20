@@ -26,32 +26,33 @@
     <h1>Let's Get Quizical!</h1>
     <p>small subtitle text</p>
     <input id="username-input" type="text" placeholder="Enter your username">
-    
-    <!-- Dropdowns -->
-    <label for="category-select">Select Category</label>
-    <select id="category-select" name="catergory-select">
-      <option value="general">General Knowledge</option>
-      <option value="placeholder">Placeholder</option>
-    </select>
-
-    <label for="difficulty-select">Select Difficulty</label>
-    <select id="difficulty-select" name="difficulty-select">
-      <option value="easy">Easy</option>
-      <option value="medium">Medium</option>
-      <option value="hard">Hard</option>
-    </select>
-
-    <label for="number-of-questions">Number of questions</label>
-    <select id="number-of-questions" name="number-of-questions">
-      <option value="5">5</option>
-      <option value="10">10</option>
-      <option value="15">15</option>
-    </select>
-   
-
-    <button id="start-btn">Start Quiz</button>
+     <button id="username-btn">Enter username</button>
   </div>
 
+    <!-- Selection dropdowns -->
+    <div id="selection-screen" class="screen hidden">
+      <label for="category-select">Select Category</label>
+      <select id="category-select" name="catergory-select">
+        <option value="general">General Knowledge</option>
+        <option value="placeholder">Placeholder</option>
+      </select>
+
+      <label for="difficulty-select">Select Difficulty</label>
+      <select id="difficulty-select" name="difficulty-select">
+        <option value="easy">Easy</option>
+        <option value="medium">Medium</option>
+        <option value="hard">Hard</option>
+      </select>
+
+      <label for="number-of-questions">Number of questions</label>
+      <select id="number-of-questions" name="number-of-questions">
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+      </select>
+      <button id="start-btn">Start Quiz</button>
+    </div>
+   
   <!-- Quiz Screen -->
   <div id="quiz-screen" class="screen hidden">
     <div class="top-bar">
@@ -76,6 +77,7 @@
     <p>Username: <span id="result-username"></span></p>
     <p>Score: <span id="result-score"></span></p>
     <p>Percentage: <span id="result-percent"></span></p>
+    <p>Congratulations!<span id="result-message"></span></p>
 
     <button onclick="location.href='index.html'" id="play-again-btn">Play Again</button>
     
