@@ -181,12 +181,13 @@ function setResults() {
 
 }
 
-async function getApiQuestions(amount = 15) {
-    const url = `https://opentdb.com/api.php?encode=url3986&amount=${amount}`;
+async function getApiQuestions(amount = 30, difficulty = "easy") {
+    const url = `https://opentdb.com/api.php?encode=url3986&amount=${amount}&difficulty=${difficulty}&category=9`;
     const res = await fetch(url);
     const data = await res.json();
     if (!data || data.response_code !== 0) return; // return if api call failed.
     
+    console.log(data.results);
     //Loops through the results array and returns a new sorted array of question objects
     const sortedQuestions = data.results.map(q => {
             const question = decodeURIComponent(q.question);
