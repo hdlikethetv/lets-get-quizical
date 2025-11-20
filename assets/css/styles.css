@@ -347,6 +347,7 @@ select option {
         padding: 0.9rem;
         border-radius: 12px;
         max-height: 88vh;
+        min-height: 320px; /* ensure a minimum card height on small screens */
         overflow-y: auto;
         box-sizing: border-box;
         box-shadow: 0 4px 12px rgba(0,0,0,0.08);
@@ -368,16 +369,18 @@ select option {
 
     #question-image { display: block; max-height: 38vh; object-fit: cover; }
 }
+
 /* media queries */
 
 /* small/mobile devices */
 @media (max-width: 360px) {
     .screen {
-        padding: 0.6rem;    /* tighter still on very small screens */
+        padding: 0.6rem;    
         border-radius: 10px;
-        max-width: 320px;   /* make the card narrower on extra-small devices */
+        max-width: 320px;   
         margin: 1rem auto;
         box-shadow: 0 3px 8px rgba(0,0,0,0.06);
+        min-height: 280px; /* min height for small devices */
     }
 
     h1 {
