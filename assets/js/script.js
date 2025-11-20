@@ -5,10 +5,14 @@ const quizScreen = document.getElementById('quiz-screen');
 const resultScreen = document.getElementById('results-screen');
 
 // Get start page element references
-const startButton = document.getElementById('start-btn');
 const usernameInput = document.getElementById('username-input');
 const userNameBtn = document.getElementById('username-btn');
 
+//Get selection page element reference
+const startButton = document.getElementById('start-btn');
+const cateDropdown = document.getElementById('category-select');
+const diffDropdown = document.getElementById('difficulty-select');
+const noOfQuestions = document.getElementById('number-of-questions');
 
 // Get quiz page element references
 const usernameDisplay = document.getElementById('display-username');
@@ -93,8 +97,8 @@ function showScreen(screen) {
 }
 
 // Function to start the quiz
-function startQuiz() {
-    
+async function startQuiz() {
+    await getApiQuestions(noOfQuestions.value, diffDropdown.value, getCategoryNum(cateDropdown.value)); // get the questions before moving on to show quiz screen
     showScreen('quiz');
     loadQuestion(0); // Load the first question
 }
@@ -111,6 +115,7 @@ function showSelection() {
         return;
     }
     showScreen('selection');
+    
     
     usernameDisplay.textContent = enteredName;
     setName = enteredName;
@@ -193,8 +198,8 @@ function setResults() {
 
 }
 
-async function getApiQuestions(amount = 30, difficulty = "easy") {
-    const url = `https://opentdb.com/api.php?encode=url3986&amount=${amount}&difficulty=${difficulty}&category=9`;
+async function getApiQuestions(amount = 30, difficulty = "easy", category = 9) {
+    const url = `https://opentdb.com/api.php?encode=url3986&amount=${amount}&difficulty=${difficulty}&category=${category}`;
     const res = await fetch(url);
     const data = await res.json();
     if (!data || data.response_code !== 0) return; // return if api call failed.
@@ -205,7 +210,7 @@ async function getApiQuestions(amount = 30, difficulty = "easy") {
             const question = decodeURIComponent(q.question);
             const correct = decodeURIComponent(q.correct_answer);
             const incorrect = q.incorrect_answers.map(a => decodeURIComponent(a));
-            let answers = decodeURIComponent(q.type) === 'boolean' ? ['True', 'False'] : [...incorrect, correct]; //  if the question is true or false set answers if not make a array from contents of incorrect array + correct answer
+            let answers = decodeURIComponent(q.type) === 'boolean' ? ['True', 'False'] : shuffleArray([...incorrect, correct]); //  if the question is true or false set answers if not make a array from contents of incorrect array + correct answer
             return { type: 'text', question, answers, correctAnswer: correct };
     });
 
@@ -213,6 +218,25 @@ async function getApiQuestions(amount = 30, difficulty = "easy") {
     questions = sortedQuestions;
 
 }
+// Covert category string to its number value for the API call
+function getCategoryNum(category) {
+    let num; // To store number value of category for API call
+
+    if(category === 'general') num = 9
+    else if(category === 'sports') num = 21
+    else if (category === 'history') num = 23
+    else if (category === 'science') num = 17
+    return num
+}
+
+function shuffleArray(array) {
+    let shuffledArray = array.sort(() => Math.random() - 0.5);
+
+    return shuffledArray;
+}
+
+
+
 
 showScreen('start'); // Show the start screen by default
-getApiQuestions();
+
