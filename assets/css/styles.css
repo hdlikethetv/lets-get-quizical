@@ -72,6 +72,7 @@ p {
     padding: 14px 48px 14px 16px;
     margin: 1rem auto 1.5rem;
     font-size: 1rem;
+    text-align: center;
 
     background: linear-gradient(180deg, rgba(255,255,255,0.98), var(--white));
     border: 2px solid rgba(16,58,92,0.12);
@@ -96,7 +97,7 @@ p {
     background: linear-gradient(180deg, rgba(250,250,250,0.9), var(--white));
 }
 
-#start-btn {
+#start-btn, #username-btn {
     width: 60%;
     padding: 12px;
     background: var(--primary-navy);
@@ -152,7 +153,7 @@ p {
     cursor: pointer;
 }
 
-#answer-buttons button:hover {
+#answer-buttons .a-btn:hover {
     background: var(--secondary-blue);
     color: white;
 }
@@ -170,11 +171,11 @@ p {
 }
 
 /* ensure hover keeps the correct/incorrect background (overrides .answer-btn:hover) */
-#answer-buttons .answer-btn.correct:hover {
+#answer-buttons .a-btn.correct:hover {
     background-color: #2B7A0B;
     transform: scale(1.02);
 }
-#answer-buttons .answer-btn.incorrect:hover {
+#answer-buttons .a-btn.incorrect:hover {
     background-color: #C3423F;
     transform: scale(1.02);
 }
@@ -347,6 +348,7 @@ select option {
         padding: 0.9rem;
         border-radius: 12px;
         max-height: 88vh;
+        min-height: 320px; /* ensure a minimum card height on small screens */
         overflow-y: auto;
         box-sizing: border-box;
         box-shadow: 0 4px 12px rgba(0,0,0,0.08);
@@ -368,16 +370,18 @@ select option {
 
     #question-image { display: block; max-height: 38vh; object-fit: cover; }
 }
+
 /* media queries */
 
 /* small/mobile devices */
 @media (max-width: 360px) {
     .screen {
-        padding: 0.6rem;    /* tighter still on very small screens */
+        padding: 0.6rem;    
         border-radius: 10px;
-        max-width: 320px;   /* make the card narrower on extra-small devices */
+        max-width: 320px;   
         margin: 1rem auto;
         box-shadow: 0 3px 8px rgba(0,0,0,0.06);
+        min-height: 280px; /* min height for small devices */
     }
 
     h1 {
