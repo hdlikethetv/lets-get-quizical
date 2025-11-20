@@ -34,7 +34,7 @@ let setName;
 let score = 0;
 
 // testing questions
-const questions = [
+let questions = [
   {
     type: 'text',
     question: 'What is the capital of Japan?',
@@ -181,5 +181,25 @@ function setResults() {
 
 }
 
-showScreen('start'); // Show the start screen by default
+async function getApiQuestions(amount = 15) {
+    const url = `https://opentdb.com/api.php?encode=url3986&amount=${amount}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    if (!data || data.response_code !== 0) return; // return if api call failed.
+    
+    //Loops through the results array and returns a new sorted array of question objects
+    const sortedQuestions = data.results.map(q => {
+            const question = decodeURIComponent(q.question);
+            const correct = decodeURIComponent(q.correct_answer);
+            const incorrect = q.incorrect_answers.map(a => decodeURIComponent(a));
+            const answers = [...incorrect, correct]; // Make a array from contents of incorrect array + correct answer
+            return { type: 'text', question, answers, correctAnswer: correct };
+    });
 
+    console.log(sortedQuestions);
+    questions = sortedQuestions;
+
+}
+
+showScreen('start'); // Show the start screen by default
+getApiQuestions();
