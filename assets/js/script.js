@@ -1,5 +1,6 @@
 // Get references to the different screens
 const startScreen = document.getElementById('start-screen');
+const selectionScreen = document.getElementById('selection-screen');
 const quizScreen = document.getElementById('quiz-screen');
 const resultScreen = document.getElementById('results-screen');
 
@@ -75,6 +76,7 @@ function showScreen(screen) {
     startScreen.classList.add('hidden');
     quizScreen.classList.add('hidden');     // Hide alll
     resultScreen.classList.add('hidden');
+    selectionScreen.classList.add('hidden');
 
     // Show the selected screen
     if (screen === 'start') {
@@ -83,6 +85,8 @@ function showScreen(screen) {
         quizScreen.classList.remove('hidden');
     } else if (screen === 'results') {
         resultScreen.classList.remove('hidden');
+    } else if (screen === 'selection') {
+         selectionScreen.classList.remove('hidden');
     }
 }
 
@@ -194,7 +198,7 @@ async function getApiQuestions(amount = 30, difficulty = "easy") {
             const question = decodeURIComponent(q.question);
             const correct = decodeURIComponent(q.correct_answer);
             const incorrect = q.incorrect_answers.map(a => decodeURIComponent(a));
-            const answers = [...incorrect, correct]; // Make a array from contents of incorrect array + correct answer
+            let answers = decodeURIComponent(q.type) === 'boolean' ? ['True', 'False'] : [...incorrect, correct]; //  if the question is true or false set answers if not make a array from contents of incorrect array + correct answer
             return { type: 'text', question, answers, correctAnswer: correct };
     });
 
