@@ -72,6 +72,7 @@ p {
     padding: 14px 48px 14px 16px;
     margin: 1rem auto 1.5rem;
     font-size: 1rem;
+    text-align: center;
 
     background: linear-gradient(180deg, rgba(255,255,255,0.98), var(--white));
     border: 2px solid rgba(16,58,92,0.12);
