@@ -116,6 +116,7 @@ function loadQuestion(index) {
     console.log(currentAnswers);
     console.log(currentCorrectAnswer);  
 
+    nextQuestionBtn.classList.add('hidden'); // Hide the next question button if its visible
     questionNumber.textContent = `${currentQuestionIndex + 1} / ${questions.length}`;
     questionContainer.textContent = currentQuestion.question;
     answersContainer.innerHTML = ''; // Clear previous answers if any
