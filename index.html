@@ -24,17 +24,25 @@
     <!-- Start Screen -->
   <div id="start-screen" class="screen">
     <h1>Let's Get Quizical!</h1>
-    <p>small subtitle text</p>
+    <h4>Time to train your brain 🧠</h4>
     <input id="username-input" type="text" placeholder="Enter your username">
      <button id="username-btn">Enter username</button>
+       <div>
+    <img src="assets/images/brain.png" alt="quiz logo" style="max-width: 150px;">
   </div>
+  </div>
+
+  
 
     <!-- Selection dropdowns -->
     <div id="selection-screen" class="screen hidden">
       <label for="category-select">Select Category</label>
       <select id="category-select" name="catergory-select">
         <option value="general">General Knowledge</option>
-        <option value="placeholder">Placeholder</option>
+        <option value="science">Science</option>
+        <option value="sports">Sports</option>
+        <option value="history">History</option>
+        
       </select>
 
       <label for="difficulty-select">Select Difficulty</label>
@@ -81,6 +89,10 @@
 
     <button onclick="location.href='index.html'" id="play-again-btn">Play Again</button>
     
+  </div>
+
+  <div>
+    <img src="assets/images/brain.png" alt="quiz logo" style="display:none;">
   </div>
    
 
