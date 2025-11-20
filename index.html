@@ -26,7 +26,7 @@
     <h1>Let's Get Quizical!</h1>
     <p>small subtitle text</p>
     <input id="username-input" type="text" placeholder="Enter your username">
-     <button id="start-btn">Enter username</button>
+     <button id="username-btn">Enter username</button>
   </div>
 
     <!-- Selection dropdowns -->
@@ -50,8 +50,8 @@
         <option value="10">10</option>
         <option value="15">15</option>
       </select>
-      <button id="begin-quiz-btn">Start Quiz</button>
-  </div>
+      <button id="start-btn">Start Quiz</button>
+    </div>
    
   <!-- Quiz Screen -->
   <div id="quiz-screen" class="screen hidden">
@@ -77,6 +77,7 @@
     <p>Username: <span id="result-username"></span></p>
     <p>Score: <span id="result-score"></span></p>
     <p>Percentage: <span id="result-percent"></span></p>
+    <p>Congratulations!<span id="result-message"></span></p>
 
     <button onclick="location.href='index.html'" id="play-again-btn">Play Again</button>
     
