@@ -27,9 +27,7 @@ const questionNumber = document.getElementById('question-number');
 const resultUsername = document.getElementById('result-username');
 const resultScore = document.getElementById('result-score');
 const resultPercent = document.getElementById('result-percent');
-
-
-
+const resultMessage = document.getElementById('result-message');
 
 //Global Variables
 let currentQuestion = [];
@@ -78,6 +76,13 @@ nextQuestionBtn.addEventListener('click', () => {
         loadQuestion(nextIndex);
     }
 });
+// Event listen for Enter key to submit username
+usernameInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        showSelection();
+    }
+})
 
 // Function to show a specific screen and hide the others
 function showScreen(screen) {
@@ -116,9 +121,8 @@ function showSelection() {
         alert('Name must be at least 3 characters long.');
         return;
     }
+
     showScreen('selection');
-    
-    
     usernameDisplay.textContent = enteredName;
     setName = enteredName;
 
@@ -129,10 +133,6 @@ function loadQuestion(index) {
     currentQuestionIndex = index;
     currentAnswers = currentQuestion.answers;
     currentCorrectAnswer = currentQuestion.correctAnswer;
-
-    console.log(currentQuestion);
-    console.log(currentAnswers);
-    console.log(currentCorrectAnswer);  
 
     nextQuestionBtn.classList.add('hidden'); // Hide the next question button if its visible
     questionNumber.textContent = `${currentQuestionIndex + 1} / ${questions.length}`;
@@ -156,13 +156,10 @@ function checkAnswer(e) {
     const submittedAnswer = e.target.textContent;
     let selectedButton = e.target;
     let currentAnswerButtons = document.querySelectorAll('.answer-btn');
-    console.log(e.target.textContent);
 
     if (!selectedButton.classList.contains('a-btn')) {
         return;
     }
-
-    console.log("Button code ran");
 
     if (submittedAnswer === currentCorrectAnswer) {
         console.log("Correct");
@@ -176,9 +173,6 @@ function checkAnswer(e) {
         wrongSound.play(); // 🔊 Play wrong sound
         selectedButton.classList.add('incorrect');
 
-        
-        console.log(currentAnswerButtons);
-
         currentAnswerButtons.forEach(button => {
         console.log(button);
         console.log(button.textContent);
@@ -187,19 +181,31 @@ function checkAnswer(e) {
         }
     });
     }
+
     currentAnswerButtons.forEach(button => {
         button.classList.remove("a-btn");
     });
     // Show next question button
     nextQuestionBtn.classList.remove('hidden');
 }
-
+// Set result page elements
 function setResults() {
-
     resultUsername.textContent = setName;
     resultScore.textContent = score;
-    resultPercent.textContent = Math.round(score / questions.length * 100) + '%'
 
+    const percent = Math.round(score / questions.length * 100);
+    resultPercent.textContent = percent + '%';
+    resultMessage.textContent = getResultMessage(percent);
+}
+
+// Return result message based on number (percentage)
+function getResultMessage(percent) {
+    if (percent === 100) return "Perfect score, incredible!";
+    if (percent >= 90) return "Excellent work!";
+    if (percent >= 75) return "Great job!";
+    if (percent >= 50) return "Nice effort, keep practicing!";
+    if (percent >= 25) return "You can do better, try again!";
+    return "Don't give up, study and try again!";
 }
 
 async function getApiQuestions(amount = 30, difficulty = "easy", category = 9) {
@@ -218,7 +224,6 @@ async function getApiQuestions(amount = 30, difficulty = "easy", category = 9) {
             return { type: 'text', question, answers, correctAnswer: correct };
     });
 
-    console.log(sortedQuestions);
     questions = sortedQuestions;
 
 }
@@ -239,8 +244,6 @@ function shuffleArray(array) {
     return shuffledArray;
 }
 
-
-
-
-showScreen('start'); // Show the start screen by default
+// Show the start screen by default when page loads
+showScreen('start'); 
 
