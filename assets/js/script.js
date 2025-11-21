@@ -76,6 +76,13 @@ nextQuestionBtn.addEventListener('click', () => {
         loadQuestion(nextIndex);
     }
 });
+// Event listen for Enter key to submit username
+usernameInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        showSelection();
+    }
+})
 
 // Function to show a specific screen and hide the others
 function showScreen(screen) {
