@@ -39,7 +39,7 @@ let currentCorrectAnswer;
 let setName;
 let score = 0;
 //make sound for correct or incorrect answers
-const correctSound = new Audio('sounds/crowd-cheering-sound-effect-258730.mp3');
+const correctSound = new Audio('sounds/ding-126626.mp3');
 const wrongSound = new Audio('sounds/wrong-47985.mp3');
 // testing questions
 let questions = [
