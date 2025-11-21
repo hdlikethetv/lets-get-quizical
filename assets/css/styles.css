@@ -46,6 +46,7 @@ body {
     display: none;
 }
 
+
 /* typography */
 h1 {
     font-size: 2rem;
@@ -80,6 +81,9 @@ p {
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
 
     cursor: text;
+}
+#username-btn:hover {
+    background: var(--secondary-blue);
 }
 
 /* focus to mirror select:focus */
@@ -415,18 +419,14 @@ select option {
     }
 }
 
-/* larger-screen layout */
-@media (min-width: 1200px) {
-    .screen {
-        max-width: 520px;
-    }
-}
+
 
 /* Large screens: answers two-per-row  */
 @media (min-width: 900px) {
     .screen {
         max-width: 720px; /* keep card from becoming too wide */
         padding: 5rem;
+        
     }
 
     .top-bar {
@@ -455,5 +455,104 @@ select option {
     #next-btn,
     #results-screen button {
         width: 40%;
+    }
+}
+
+/** 4k Screens */
+
+@media (min-width: 1800px) {
+    .screen {
+        max-width: 1200px;
+        min-height: 600px;
+        height: auto; 
+        padding: 7rem;
+    
+    }
+
+    #start-screen h1 {
+        font-size: 5rem;
+    }
+    #start-screen h4 {
+        font-size: 3rem;
+    }
+
+    #username-input {
+        font-size: 2rem;
+        max-width: 800px;
+        padding: 20px 60px 20px 20px;
+        margin: 40px auto 30px;
+    }
+
+    #username-btn {
+        font-size: 2rem;
+        padding: 16px;
+    }
+
+    #selection-screen {
+        width: 240%;
+        font-size: 2rem;
+        padding: 150px;
+    }
+
+  
+    #start-btn {
+        font-size: 2.2rem;
+        padding: 16px;
+        margin: 80px auto 0;
+    }
+
+    .top-bar {
+        font-size: 2rem;
+        margin-bottom: 3rem;
+    }
+    
+     #question-text{
+        font-size: 2.6rem;
+        margin-bottom: 3rem;
+    }
+
+    #answer-buttons {
+        height: 250%;
+        margin-top: 40px;
+    }
+
+    .answer-btn {
+        height: 7rem;
+        width: auto;
+        padding: 16px;
+        margin: 5px;
+        font-size: 5rem;
+       
+    }
+
+    #answer-buttons button {
+        font-size: 2rem;
+        padding: 20px;
+    }
+   
+
+    #next-btn {
+        font-size: 2.2rem;
+        padding: 16px;
+        margin-top: 40px;
+    }
+
+    #results-screen h2 {
+        font-size: 4rem;
+        margin-bottom: 4rem;
+    }
+
+    #results-screen p {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+    }
+    
+    #results-screen button {
+        font-size: 2.2rem;
+        padding: 16px;
+    }
+
+    #quiz-logo img {
+        width: 500px;
     }
 }
