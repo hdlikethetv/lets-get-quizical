@@ -27,6 +27,7 @@ const questionNumber = document.getElementById('question-number');
 const resultUsername = document.getElementById('result-username');
 const resultScore = document.getElementById('result-score');
 const resultPercent = document.getElementById('result-percent');
+const resultMessage = document.getElementById('result-message');
 
 
 
@@ -201,8 +202,20 @@ function setResults() {
 
     resultUsername.textContent = setName;
     resultScore.textContent = score;
-    resultPercent.textContent = Math.round(score / questions.length * 100) + '%'
 
+    const percent = Math.round(score / questions.length * 100);
+    resultPercent.textContent = percent + '%';
+    resultMessage.textContent = getResultMessage(percent);
+
+}
+
+function getResultMessage(percent) {
+    if (percent === 100) return "Perfect score, incredible!";
+    if (percent >= 90) return "Excellent work!";
+    if (percent >= 75) return "Great job!";
+    if (percent >= 50) return "Nice effort, keep practicing!";
+    if (percent >= 25) return "You can do better, try again!";
+    return "Don't give up, study and try again!";
 }
 
 async function getApiQuestions(amount = 30, difficulty = "easy", category = 9) {
