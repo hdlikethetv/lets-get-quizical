@@ -46,6 +46,8 @@ body {
     display: none;
 }
 
+
+
 /* typography */
 h1 {
     font-size: 2rem;
@@ -80,6 +82,12 @@ p {
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
 
     cursor: text;
+}
+#username-btn:hover {
+    background: var(--secondary-blue);
+}
+#username-btn:hover {
+    background: var(--secondary-blue);
 }
 
 /* focus to mirror select:focus */
@@ -216,13 +224,148 @@ p {
 
 /* dropdown / select styles */
 
-/* Wrapper to allow custom arrow and consistent width */
+/* positioning for the boxes wrapper */
 .select-wrapper {
     position: relative;
     width: 100%;
-    margin: 0.5rem auto;
-    display: block;
+    margin: 2rem auto;
+    display: flex;
     max-width: 420px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+}
+
+/* Match other screens */
+#selection-screen {
+    background: var(--panel-white);
+    width: 90%;
+    max-width: 450px;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    text-align: center;
+
+    /* Center on page like other cards */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    /* flex layout */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* keep content top-aligned */
+}
+
+/* Hide screen when needed */
+.hidden {
+    display: none !important;
+}
+
+/* Labels + spacing */
+#selection-screen label {
+    display: block;
+    font-weight: 600;
+    margin: 1rem 0 0.5rem 0; /* only vertical spacing */
+}
+
+/* Dropdown styling */
+#selection-screen select {
+    width: 80%; /* prevents squashed boxes */
+    padding: 10px 12px;
+    font-size: 1rem;
+    text-align: center;
+    text-align-last: center;
+    border: 2px solid rgba(16,58,92,0.12);
+    border-radius: 12px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.98), #FFFFFF);
+    cursor: pointer;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+    margin-bottom: 1rem; /* space below each dropdown */
+}
+
+#selection-screen select:hover {
+    border-color: var(--secondary-blue);
+}
+
+#selection-screen select:focus {
+    outline: none;
+    border-color: var(--primary-navy);
+}
+
+/* Constrain the logo size */
+.logo-img {
+    width: 120px; /* or whatever fits nicely */
+    height: auto;
+    display: block;
+    margin: 0 auto; /* centers it */
+}
+
+/* Hide any element */
+.hidden {
+    display: none !important;
+}
+
+/* Match other screens */
+#selection-screen {
+    background: var(--panel-white);
+    width: 90%;
+    max-width: 450px;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    text-align: center;
+
+    /* Center on page like other cards */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    /* flex layout */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* keep content top-aligned */
+}
+
+/* Hide screen when needed */
+.hidden {
+    display: none !important;
+}
+
+/* Labels + spacing */
+#selection-screen label {
+    display: block;
+    font-weight: 600;
+    margin: 1rem 0 0.5rem 0; /* only vertical spacing */
+}
+
+/* Dropdown styling */
+#selection-screen select {
+    width: 80%; /* prevents squashed boxes */
+    padding: 10px 12px;
+    font-size: 1rem;
+    text-align: center;
+    text-align-last: center;
+    border: 2px solid rgba(16,58,92,0.12);
+    border-radius: 12px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.98), #FFFFFF);
+    cursor: pointer;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+    margin-bottom: 1rem; /* space below each dropdown */
+}
+
+#selection-screen select:hover {
+    border-color: var(--secondary-blue);
+}
+
+#selection-screen select:focus {
+    outline: none;
+    border-color: var(--primary-navy);
 }
 
 /* modifiers for quick layout choices */
@@ -230,12 +373,12 @@ p {
 .select--compact .select-wrapper { max-width: 300px; }
 .select--inline .select-wrapper { width: auto; margin: 0; }
 
-/* select base appearance */
+/* category select make centered */
 .select-wrapper select,
 select {
     appearance: none;
     width: 100%;
-    padding: 14px 48px 14px 16px;
+    padding: 12px 36px 12px 12px;
     font-size: 1rem;
     color: var(--text);
     background: linear-gradient(180deg, rgba(255,255,255,0.98), var(--white));
@@ -243,6 +386,8 @@ select {
     border-radius: 12px;
     cursor: pointer;
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+    text-align: center;
+    text-align-last: center; /* center selected option text */
 }
 
 /* stronger hover and focus to match brand */
@@ -413,20 +558,21 @@ select option {
         gap: 10px;
         margin-top: 1rem; /* compact spacing for extra-small devices */
     }
-}
 
-/* larger-screen layout */
-@media (min-width: 1200px) {
-    .screen {
-        max-width: 520px;
+    div img {
+        width:300px;
     }
 }
+
+
 
 /* Large screens: answers two-per-row  */
 @media (min-width: 900px) {
     .screen {
         max-width: 720px; /* keep card from becoming too wide */
         padding: 5rem;
+        
+        
     }
 
     .top-bar {
@@ -455,5 +601,123 @@ select option {
     #next-btn,
     #results-screen button {
         width: 40%;
+    }
+}
+
+/** 4k Screens */
+
+@media (min-width: 1800px) {
+    .screen {
+        max-width: 1200px;
+        min-height: 600px;
+        height: auto; 
+        padding: 7rem;
+    
+    }
+
+    #start-screen h1 {
+        font-size: 5rem;
+    }
+    #start-screen h4 {
+        font-size: 3rem;
+    }
+
+    #username-input {
+        font-size: 2rem;
+        max-width: 800px;
+        padding: 20px 60px 20px 20px;
+        margin: 40px auto 30px;
+    }
+
+    #username-btn {
+        font-size: 2rem;
+        padding: 16px;
+    }
+
+    #selection-screen {
+        
+        font-size: 2rem;
+        padding: 50px;
+        max-width: 800px;
+    }
+
+     #selection-screen select {
+        font-size: 2rem;
+        padding: 16px 0px 16px 16px;
+    }
+
+  
+    #start-btn {
+        font-size: 2.2rem;
+        padding: 16px;
+        margin: 40px auto 0;
+        height: 250%
+    }
+
+    
+
+    .top-bar {
+        font-size: 2rem;
+        margin-bottom: 3rem;
+    }
+    
+     #question-text{
+        font-size: 2.6rem;
+        margin-bottom: 3rem;
+    }
+
+    #answer-buttons {
+        height: 250%;
+        margin-top: 40px;
+    }
+
+    .answer-btn {
+        height: 7rem;
+        width: auto;
+        padding: 16px;
+        margin: 5px;
+        font-size: 5rem;
+       
+    }
+    #answer-buttons button {
+        font-size: 2rem;
+        padding: 20px;
+        /* Responsive font size: shrink if text wraps */
+        overflow-wrap: break-word;
+        word-break: break-word;
+        white-space: normal;
+        display: block;
+    }
+
+    /* Shrink font size if text wraps to 2+ lines */
+    #answer-buttons button {
+        line-height: 1.2;
+        transition: font-size 0.2s;
+    }
+    #answer-buttons button:has(br), 
+    #answer-buttons button:has(span[style*="display: block"]) {
+        font-size: 1.3rem;
+    }
+   
+
+    #next-btn {
+        font-size: 2.2rem;
+        padding: 16px;
+        margin-top: 40px;
+    }
+
+    #results-screen h2 {
+        font-size: 4rem;
+        margin-bottom: 4rem;
+    }
+
+    #results-screen p {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+    }
+    
+    #results-screen button {
+        font-size: 2.2rem;
+        padding: 16px;
     }
 }

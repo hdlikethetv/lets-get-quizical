@@ -36,7 +36,9 @@ let currentAnswers;
 let currentCorrectAnswer;
 let setName;
 let score = 0;
-
+//make sound for correct or incorrect answers
+const correctSound = new Audio('sounds/ding-126626.mp3');
+const wrongSound = new Audio('sounds/wrong-47985.mp3');
 // testing questions
 let questions = [
   {
@@ -161,11 +163,14 @@ function checkAnswer(e) {
 
     if (submittedAnswer === currentCorrectAnswer) {
         console.log("Correct");
+        correctSound.play(); // 🔊 Play correct sound
         selectedButton.classList.add('correct');
         score = score + 1
         quizScore.textContent = score
 
     } else {
+        console.log("Incorrect");
+        wrongSound.play(); // 🔊 Play wrong sound
         selectedButton.classList.add('incorrect');
 
         currentAnswerButtons.forEach(button => {
