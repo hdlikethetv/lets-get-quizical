@@ -1,5 +1,4 @@
 # Let's Get Quizical 
-hi 
 
 ## Table of Contents
 
